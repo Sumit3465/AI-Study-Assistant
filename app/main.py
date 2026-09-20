@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.routes.study import router as study_router
 from app.routes.chat import router as chat_router
 
 
@@ -29,6 +29,7 @@ app.add_middleware(
 )
 
 app.include_router(chat_router)
+app.include_router(study_router)
 
 
 @app.get("/")

@@ -18,3 +18,16 @@ class QuestionRequest(BaseModel):
 class AnswerResponse(BaseModel):
     conversation_id: str
     answer: str
+
+class SummarizeRequest(BaseModel):
+    topic: str = Field(
+        ...,
+        min_length=2,
+        max_length=2000,
+        description="Topic or study material to summarize"
+    )
+
+
+class SummaryResponse(BaseModel):
+    summary: str
+    conversation_id: str

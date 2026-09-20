@@ -3,7 +3,6 @@ from fastapi import APIRouter, HTTPException
 from app.models.schemas import QuestionRequest, AnswerResponse
 from app.foundry import foundry_service
 
-
 router = APIRouter(prefix="/api", tags=["Chat"])
 
 
@@ -13,7 +12,11 @@ def ask_question(request: QuestionRequest):
     try:
         result = foundry_service.ask(
             question=request.question,
-            conversation_id=request.conversation_id
+            conversation_id=(
+                request.conversation_id
+                if request.conversation_id and request.conversation_id != "string"
+                else None
+            )
         )
 
         return AnswerResponse(
@@ -21,8 +24,8 @@ def ask_question(request: QuestionRequest):
             answer=result["answer"]
         )
 
-    except Exception:
+    except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail="Unable to process the study question."
+            detail=str(e)
         )

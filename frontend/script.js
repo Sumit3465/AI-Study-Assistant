@@ -61,23 +61,15 @@ async function askQuestion() {
     const answer = document.getElementById("answer");
 
     if (!question) {
-        answer.innerHTML = `
-            <div class="empty-state">
-                <span>!</span>
-                <h3>Please enter a question</h3>
-                <p>Ask something about your study material.</p>
-            </div>
-        `;
+        showError(
+            answer,
+            "No question entered",
+            "Please enter a question about your study material."
+        );
         return;
     }
 
-    answer.innerHTML = `
-        <div class="empty-state">
-            <span>✦</span>
-            <h3>Thinking...</h3>
-            <p>Searching your study material and generating an answer.</p>
-        </div>
-    `;
+    showLoading(answer);
 
     try {
         const response = await fetch(`${API_URL}/api/ask`, {
@@ -102,19 +94,30 @@ async function askQuestion() {
         conversationId = data.conversation_id;
 
         answer.innerHTML = `
-            <div class="ai-answer">
-                ${formatResponse(data.answer)}
+            <div class="ai-response-wrapper">
+
+                <div class="grounding-indicator">
+                    <span class="grounding-icon">📚</span>
+
+                    <div>
+                        <strong>Grounded response</strong>
+                        <span>Based on your connected study material</span>
+                    </div>
+                </div>
+
+                <div class="ai-answer">
+                    ${formatResponse(data.answer)}
+                </div>
+
             </div>
         `;
 
     } catch (error) {
-        answer.innerHTML = `
-            <div class="empty-state">
-                <span>!</span>
-                <h3>Something went wrong</h3>
-                <p>${escapeHtml(error.message)}</p>
-            </div>
-        `;
+        showError(
+            answer,
+            "Unable to generate a response",
+            error.message || "Something went wrong while contacting the AI assistant."
+        );
     }
 }
 
@@ -132,7 +135,12 @@ async function summarizeTopic() {
         return;
     }
 
-    summary.textContent = "Generating summary...";
+    summary.innerHTML = `
+        <div class="tool-loading">
+            <span class="loader"></span>
+            <span>Generating summary...</span>
+        </div>
+    `;
 
     try {
         const response = await fetch(`${API_URL}/api/summarize`, {
@@ -156,7 +164,12 @@ async function summarizeTopic() {
         summary.innerHTML = formatResponse(data.summary);
 
     } catch (error) {
-        summary.textContent = error.message;
+        summary.innerHTML = `
+            <div class="tool-error">
+                <strong>Unable to generate summary</strong>
+                <span>${escapeHtml(error.message)}</span>
+            </div>
+        `;
     }
 }
 
@@ -174,7 +187,12 @@ async function generateQuiz() {
         return;
     }
 
-    quiz.textContent = "Generating quiz...";
+    quiz.innerHTML = `
+        <div class="tool-loading">
+            <span class="loader"></span>
+            <span>Generating quiz...</span>
+        </div>
+    `;
 
     try {
         const response = await fetch(`${API_URL}/api/quiz`, {
@@ -198,7 +216,12 @@ async function generateQuiz() {
         quiz.innerHTML = formatResponse(data.quiz);
 
     } catch (error) {
-        quiz.textContent = error.message;
+        quiz.innerHTML = `
+            <div class="tool-error">
+                <strong>Unable to generate quiz</strong>
+                <span>${escapeHtml(error.message)}</span>
+            </div>
+        `;
     }
 }
 
@@ -216,7 +239,12 @@ async function generateRevisionNotes() {
         return;
     }
 
-    revision.textContent = "Generating revision notes...";
+    revision.innerHTML = `
+        <div class="tool-loading">
+            <span class="loader"></span>
+            <span>Generating revision notes...</span>
+        </div>
+    `;
 
     try {
         const response = await fetch(`${API_URL}/api/revision-notes`, {
@@ -240,8 +268,110 @@ async function generateRevisionNotes() {
         revision.innerHTML = formatResponse(data.notes);
 
     } catch (error) {
-        revision.textContent = error.message;
+        revision.innerHTML = `
+            <div class="tool-error">
+                <strong>Unable to generate revision notes</strong>
+                <span>${escapeHtml(error.message)}</span>
+            </div>
+        `;
     }
+}
+
+
+/* =========================
+   AI RESPONSE LOADING
+========================= */
+
+function showLoading(container) {
+    container.innerHTML = `
+        <div class="ai-loading">
+
+            <div class="ai-loading-icon">
+                <span>✦</span>
+            </div>
+
+            <div class="loading-content">
+                <strong>Thinking...</strong>
+
+                <span>
+                    Searching your study material and generating
+                    a grounded response.
+                </span>
+
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================
+   ERROR STATE
+========================= */
+
+function showError(container, title, message) {
+    container.innerHTML = `
+        <div class="ai-error">
+
+            <div class="error-icon">⚠</div>
+
+            <div class="error-content">
+                <strong>${escapeHtml(title)}</strong>
+                <span>${escapeHtml(message)}</span>
+
+                <button
+                    class="retry-button"
+                    onclick="askQuestion()"
+                >
+                    Try again
+                </button>
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================
+   COPY RESPONSE
+========================= */
+
+function copyAnswer() {
+    const answer = document.getElementById("answer");
+    const copyButton = document.querySelector(".copy-button");
+
+    if (!answer || !copyButton) {
+        return;
+    }
+
+    const text = answer.innerText.trim();
+
+    if (!text) {
+        return;
+    }
+
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            const originalText = copyButton.textContent;
+
+            copyButton.textContent = "Copied!";
+
+            setTimeout(() => {
+                copyButton.textContent = originalText;
+            }, 1500);
+        })
+        .catch(() => {
+            copyButton.textContent = "Failed";
+
+            setTimeout(() => {
+                copyButton.textContent = "Copy";
+            }, 1500);
+        });
 }
 
 
@@ -254,14 +384,37 @@ function formatResponse(text) {
         return "";
     }
 
-    return escapeHtml(text)
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    let formatted = escapeHtml(text);
+
+    formatted = formatted
         .replace(/^### (.*)$/gm, "<h4>$1</h4>")
         .replace(/^## (.*)$/gm, "<h3>$1</h3>")
         .replace(/^# (.*)$/gm, "<h3>$1</h3>")
-        .replace(/\n/g, "<br>");
+        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        .replace(/^\s*[-*]\s+(.*)$/gm, "<li>$1</li>")
+        .replace(/^\s*(\d+)\.\s+(.*)$/gm, "<li><strong>$1.</strong> $2</li>");
+
+    formatted = formatted.replace(
+        /(<li>.*<\/li>)/gs,
+        "<ul>$1</ul>"
+    );
+
+    formatted = formatted.replace(
+        /<\/ul>\s*<ul>/g,
+        ""
+    );
+
+    formatted = formatted.replace(/\n{2,}/g, "</p><p>");
+
+    formatted = formatted.replace(/\n/g, "<br>");
+
+    return `<div class="formatted-response"><p>${formatted}</p></div>`;
 }
 
+
+/* =========================
+   HTML ESCAPING
+========================= */
 
 function escapeHtml(text) {
     const div = document.createElement("div");

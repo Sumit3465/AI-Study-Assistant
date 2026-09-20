@@ -3,95 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Study Assistant</title>
+
+    <title>StudyAI — AI Study Assistant</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="header">
-        <div>
-            <h1>AI Study Assistant</h1>
-            <p>Study smarter with your AI-powered learning assistant</p>
-        </div>
-    </header>
+    <div class="app">
 
-    <main class="container">
+        <aside class="sidebar">
 
-        <section class="hero">
-            <h2>Your Personal AI Study Partner</h2>
-            <p>
-                Ask questions, create summaries, generate quizzes,
-                and prepare revision notes from your study material.
-            </p>
-        </section>
+            <div class="brand">
+                <div class="brand-icon">S</div>
 
-        <section class="tools">
-
-            <div class="card">
-                <h3>Ask a Question</h3>
-                <p>Ask questions about your study material.</p>
-
-                <textarea
-                    id="question"
-                    placeholder="Example: Explain the seven layers of the OSI model..."
-                ></textarea>
-
-                <button onclick="askQuestion()">Ask AI</button>
-
-                <div id="answer" class="result"></div>
+                <div>
+                    <h1>StudyAI</h1>
+                    <span>AI Study Assistant</span>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>Summarize</h3>
-                <p>Get a concise summary of a topic.</p>
+            <nav class="nav">
 
-                <input
-                    id="summaryTopic"
-                    type="text"
-                    placeholder="Example: OSI model"
-                >
-
-                <button onclick="summarizeTopic()">Summarize</button>
-
-                <div id="summary" class="result"></div>
-            </div>
-
-            <div class="card">
-                <h3>Generate Quiz</h3>
-                <p>Test your knowledge with AI-generated questions.</p>
-
-                <input
-                    id="quizTopic"
-                    type="text"
-                    placeholder="Example: TCP and UDP"
-                >
-
-                <button onclick="generateQuiz()">Generate Quiz</button>
-
-                <div id="quiz" class="result"></div>
-            </div>
-
-            <div class="card">
-                <h3>Revision Notes</h3>
-                <p>Create concise exam-oriented revision notes.</p>
-
-                <input
-                    id="revisionTopic"
-                    type="text"
-                    placeholder="Example: TCP three-way handshake"
-                >
-
-                <button onclick="generateRevisionNotes()">
-                    Generate Notes
+                <button class="nav-item active" onclick="showSection('dashboard')">
+                    <span>⌂</span>
+                    Dashboard
                 </button>
 
-                <div id="revision" class="result"></div>
+                <button class="nav-item" onclick="showSection('ask')">
+                    <span>✦</span>
+                    Ask AI
+                </button>
+
+                <button class="nav-item" onclick="showSection('tools')">
+                    <span>▣</span>
+                    Study Tools
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="grounding-card">
+                    <div class="status-dot"></div>
+
+                    <div>
+                        <strong>Knowledge Base</strong>
+                        <span>Connected & grounded</span>
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <span>Microsoft Foundry</span>
+                    <span>Foundry IQ</span>
+                    <span>Azure AI Search</span>
+                </div>
+
             </div>
 
-        </section>
+        </aside>
 
-    </main>
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div>
+                    <span class="eyebrow">AI-POWERED LEARNING</span>
+                    <h2 id="pageTitle">Good to see you.</h2>
+                </div>
+
+                <div class="topbar-badge">
+                    <span class="status-dot"></span>
+                    AI Assistant Online
+                </div>
+
+            </header>
+
+
+            <section id="dashboard" class="section active-section">
+
+                <div class="hero-card">
+
+                    <div class="hero-content">
+
+                        <span class="hero-label">YOUR PERSONAL STUDY COPILOT</span>
+
+                        <h2>
+                            Learn smarter.<br>
+                            Understand faster.
+                        </h2>
+
+                        <p>
+                            Ask questions, summarize concepts, generate quizzes,
+                            and create revision notes using your study material.
+                        </p>
+
+                        <button class="primary-button" onclick="showSection('ask')">
+                            Start studying
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                    <div class="hero-visual">
+
+                        <div class="orbit orbit-one"></div>
+                        <div class="orbit orbit-two"></div>
+
+                        <div class="ai-core">
+                            <span>AI</span>
+                        </div>
+
+                        <div class="floating-card card-one">
+                            <span>RAG</span>
+                            <small>Grounded answers</small>
+                        </div>
+
+                        <div class="floating-card card-two">
+                            <span>IQ</span>
+                            <small>Knowledge retrieval</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="eyebrow">STUDY WORKSPACE</span>
+                        <h3>What would you like to do?</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <button class="feature-card" onclick="showSection('ask')">
+
+                        <div class="feature-icon">✦</div>
+
+                        <div>
+                            <h3>Ask AI</h3>
+
+                            <p>
+                                Ask questions and get answers grounded
+                                in your study material.
+                            </p>
+                        </div>
+
+                        <span class="feature-arrow">→</span>
+
+                    </button>
+
+
+                    <button class="feature-card" onclick="showSection('tools')">
+
+                        <div class="feature-icon">◈</div>
+
+                        <div>
+                            <h3>Summarize</h3>
+
+                            <p>
+                                Turn complex study topics into concise
+                                explanations.
+                            </p>
+                        </div>
+
+                        <span class="feature-arrow">→</span>
+
+                    </button>
+
+
+                    <button class="feature-card" onclick="showSection('tools')">
+
+                        <div class="feature-icon">?</div>
+
+                        <div>
+                            <h3>Generate Quiz</h3>
+
+                            <p>
+                                Test your understanding with AI-generated
+                                MCQs.
+                            </p>
+                        </div>
+
+                        <span class="feature-arrow">→</span>
+
+                    </button>
+
+
+                    <button class="feature-card" onclick="showSection('tools')">
+
+                        <div class="feature-icon">≡</div>
+
+                        <div>
+                            <h3>Revision Notes</h3>
+
+                            <p>
+                                Create focused notes for quick exam revision.
+                            </p>
+                        </div>
+
+                        <span class="feature-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <section id="ask" class="section">
+
+                <div class="workspace-header">
+
+                    <div>
+                        <span class="eyebrow">STUDY ASSISTANT</span>
+
+                        <h2>Ask your study assistant</h2>
+
+                        <p>
+                            Ask anything related to the material in your
+                            connected knowledge base.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="ask-layout">
+
+                    <div class="ask-panel">
+
+                        <label for="question">Your question</label>
+
+                        <textarea
+                            id="question"
+                            placeholder="Example: Explain the three-way handshake in TCP..."
+                        ></textarea>
+
+                        <div class="input-footer">
+
+                            <span>
+                                Answers are grounded in your study material
+                            </span>
+
+                            <button
+                                class="primary-button"
+                                onclick="askQuestion()"
+                            >
+                                Ask AI
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="response-panel">
+
+                        <div class="response-header">
+
+                            <div>
+                                <span class="response-icon">✦</span>
+
+                                <div>
+                                    <strong>AI Response</strong>
+                                    <span>Grounded answer</span>
+                                </div>
+                            </div>
+
+                            <span class="live-indicator">
+                                <span class="status-dot"></span>
+                                Ready
+                            </span>
+
+                        </div>
+
+                        <div id="answer" class="response-content">
+                            <div class="empty-state">
+                                <span>✦</span>
+                                <h3>Your answer will appear here</h3>
+                                <p>
+                                    Ask a question about your study material
+                                    to get started.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section id="tools" class="section">
+
+                <div class="workspace-header">
+
+                    <div>
+                        <span class="eyebrow">STUDY TOOLS</span>
+
+                        <h2>Build your study session</h2>
+
+                        <p>
+                            Use AI to simplify, practice, and revise your
+                            course material.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="tools-grid">
+
+
+                    <div class="tool-panel">
+
+                        <div class="tool-icon">◈</div>
+
+                        <h3>Summarize</h3>
+
+                        <p>
+                            Get a concise explanation of any topic
+                            covered in your study material.
+                        </p>
+
+                        <input
+                            id="summaryTopic"
+                            type="text"
+                            placeholder="Example: OSI model"
+                        >
+
+                        <button
+                            class="secondary-button"
+                            onclick="summarizeTopic()"
+                        >
+                            Generate summary
+                            <span>→</span>
+                        </button>
+
+                        <div id="summary" class="tool-result">
+                            Your summary will appear here.
+                        </div>
+
+                    </div>
+
+
+                    <div class="tool-panel">
+
+                        <div class="tool-icon">?</div>
+
+                        <h3>Generate Quiz</h3>
+
+                        <p>
+                            Create five multiple-choice questions
+                            to test your understanding.
+                        </p>
+
+                        <input
+                            id="quizTopic"
+                            type="text"
+                            placeholder="Example: TCP and UDP"
+                        >
+
+                        <button
+                            class="secondary-button"
+                            onclick="generateQuiz()"
+                        >
+                            Generate quiz
+                            <span>→</span>
+                        </button>
+
+                        <div id="quiz" class="tool-result">
+                            Your quiz will appear here.
+                        </div>
+
+                    </div>
+
+
+                    <div class="tool-panel">
+
+                        <div class="tool-icon">≡</div>
+
+                        <h3>Revision Notes</h3>
+
+                        <p>
+                            Generate concise exam-oriented notes
+                            for quick revision.
+                        </p>
+
+                        <input
+                            id="revisionTopic"
+                            type="text"
+                            placeholder="Example: TCP three-way handshake"
+                        >
+
+                        <button
+                            class="secondary-button"
+                            onclick="generateRevisionNotes()"
+                        >
+                            Generate notes
+                            <span>→</span>
+                        </button>
+
+                        <div id="revision" class="tool-result">
+                            Your revision notes will appear here.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
 
     <script src="script.js"></script>
+
 </body>
 </html>

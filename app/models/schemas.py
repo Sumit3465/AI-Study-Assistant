@@ -31,3 +31,16 @@ class SummarizeRequest(BaseModel):
 class SummaryResponse(BaseModel):
     summary: str
     conversation_id: str
+
+class QuizRequest(BaseModel):
+    topic: str = Field(
+        ...,
+        min_length=2,
+        max_length=2000,
+        description="Topic for generating quiz questions"
+    )
+
+
+class QuizResponse(BaseModel):
+    conversation_id: str
+    quiz: str

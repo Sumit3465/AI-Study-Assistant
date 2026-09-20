@@ -66,6 +66,39 @@ If the topic is not covered in the study material, clearly say that it is not av
             "conversation_id": conversation_id,
             "summary": response.output_text
         }
+    
+    def generate_quiz(self, topic: str):
+
+        conversation_id = self.create_conversation()
+
+        prompt = f"""
+Create a quiz about: {topic}
+
+Use only the available study material from the knowledge base.
+
+Create 5 multiple-choice questions.
+
+For each question provide:
+- Question
+- 4 options labeled A, B, C, D
+- Correct answer
+- Short explanation
+
+Make the questions suitable for a college student studying for an exam.
+
+Do not add information that is not supported by the study material.
+If the topic is not covered in the study material, clearly say that the topic is not available.
+"""
+
+        response = self.openai.responses.create(
+            conversation=conversation_id,
+            input=prompt
+        )
+
+        return {
+            "conversation_id": conversation_id,
+            "quiz": response.output_text
+        }
 
 
 foundry_service = FoundryService()

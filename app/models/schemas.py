@@ -44,3 +44,16 @@ class QuizRequest(BaseModel):
 class QuizResponse(BaseModel):
     conversation_id: str
     quiz: str
+
+class RevisionNotesRequest(BaseModel):
+    topic: str = Field(
+        ...,
+        min_length=2,
+        max_length=2000,
+        description="Topic for generating revision notes"
+    )
+
+
+class RevisionNotesResponse(BaseModel):
+    conversation_id: str
+    notes: str

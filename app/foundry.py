@@ -99,6 +99,39 @@ If the topic is not covered in the study material, clearly say that the topic is
             "conversation_id": conversation_id,
             "quiz": response.output_text
         }
+    
+    def generate_revision_notes(self, topic: str):
+
+        conversation_id = self.create_conversation()
+
+        prompt = f"""
+Create concise exam-oriented revision notes about: {topic}
+
+Use only the available study material from the knowledge base.
+
+Structure the notes with:
+- Topic overview
+- Key concepts
+- Important definitions
+- Important points to remember
+- Protocols, examples, or comparisons if relevant
+- Quick exam revision points
+
+Keep the notes clear, concise, and easy to revise.
+
+Do not add information that is not supported by the study material.
+If the topic is not covered in the study material, clearly say that the topic is not available.
+"""
+
+        response = self.openai.responses.create(
+            conversation=conversation_id,
+            input=prompt
+        )
+
+        return {
+            "conversation_id": conversation_id,
+            "notes": response.output_text
+        }
 
 
 foundry_service = FoundryService()

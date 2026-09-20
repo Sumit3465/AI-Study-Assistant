@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes.study import router as study_router
 from app.routes.chat import router as chat_router
 from app.routes.quiz import router as quiz_router
+from app.routes.revision import router as revision_router
 
 
 logging.basicConfig(
@@ -32,6 +33,7 @@ app.add_middleware(
 app.include_router(chat_router)
 app.include_router(study_router)
 app.include_router(quiz_router)
+app.include_router(revision_router)
 
 
 @app.get("/")

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div>
+            <h1>AI Study Assistant</h1>
+            <p>Study smarter with your AI-powered learning assistant</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <h2>Your Personal AI Study Partner</h2>
+            <p>
+                Ask questions, create summaries, generate quizzes,
+                and prepare revision notes from your study material.
+            </p>
+        </section>
+
+        <section class="tools">
+
+            <div class="card">
+                <h3>Ask a Question</h3>
+                <p>Ask questions about your study material.</p>
+
+                <textarea
+                    id="question"
+                    placeholder="Example: Explain the seven layers of the OSI model..."
+                ></textarea>
+
+                <button onclick="askQuestion()">Ask AI</button>
+
+                <div id="answer" class="result"></div>
+            </div>
+
+            <div class="card">
+                <h3>Summarize</h3>
+                <p>Get a concise summary of a topic.</p>
+
+                <input
+                    id="summaryTopic"
+                    type="text"
+                    placeholder="Example: OSI model"
+                >
+
+                <button onclick="summarizeTopic()">Summarize</button>
+
+                <div id="summary" class="result"></div>
+            </div>
+
+            <div class="card">
+                <h3>Generate Quiz</h3>
+                <p>Test your knowledge with AI-generated questions.</p>
+
+                <input
+                    id="quizTopic"
+                    type="text"
+                    placeholder="Example: TCP and UDP"
+                >
+
+                <button onclick="generateQuiz()">Generate Quiz</button>
+
+                <div id="quiz" class="result"></div>
+            </div>
+
+            <div class="card">
+                <h3>Revision Notes</h3>
+                <p>Create concise exam-oriented revision notes.</p>
+
+                <input
+                    id="revisionTopic"
+                    type="text"
+                    placeholder="Example: TCP three-way handshake"
+                >
+
+                <button onclick="generateRevisionNotes()">
+                    Generate Notes
+                </button>
+
+                <div id="revision" class="result"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

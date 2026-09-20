@@ -76,6 +76,17 @@ Create a quiz about: {topic}
 
 Use only the available study material from the knowledge base.
 
+Important instructions for topic retrieval:
+- If the requested topic contains multiple concepts joined by words such as
+  "and", "or", or commas, treat each concept as a separate related topic.
+- Retrieve and use relevant study material for all requested concepts.
+- Combine the retrieved information into one quiz covering the requested topic.
+- Do not require the exact combined phrase to appear in the study material.
+- For example, if the topic is "TCP and UDP", retrieve information about
+  both TCP and UDP and create questions covering both.
+- If none of the requested concepts are covered by the study material,
+  clearly say that the topic is not available.
+
 Create 5 multiple-choice questions.
 
 For each question provide:
@@ -87,7 +98,6 @@ For each question provide:
 Make the questions suitable for a college student studying for an exam.
 
 Do not add information that is not supported by the study material.
-If the topic is not covered in the study material, clearly say that the topic is not available.
 """
 
         response = self.openai.responses.create(

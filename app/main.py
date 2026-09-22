@@ -6,7 +6,8 @@ from app.routes.study import router as study_router
 from app.routes.chat import router as chat_router
 from app.routes.quiz import router as quiz_router
 from app.routes.revision import router as revision_router
-
+from app.routes.auth import router as auth_router
+from app.database import init_db
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,6 +16,8 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+# Create DB tables on startup
+init_db()
 
 app = FastAPI(
     title="AI Study Assistant API",
@@ -30,6 +33,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth_router)
 app.include_router(chat_router)
 app.include_router(study_router)
 app.include_router(quiz_router)
@@ -38,13 +42,9 @@ app.include_router(revision_router)
 
 @app.get("/")
 def root():
-    return {
-        "message": "AI Study Assistant API is running"
-    }
+    return {"message": "AI Study Assistant API is running"}
 
 
 @app.get("/health")
 def health():
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}

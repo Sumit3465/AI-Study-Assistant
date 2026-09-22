@@ -1,4 +1,4 @@
-from azure.identity import DefaultAzureCredential
+from azure.identity import AzureCliCredential
 from azure.ai.projects import AIProjectClient
 
 from app.config import (
@@ -12,7 +12,7 @@ class FoundryService:
     def __init__(self):
         self.project = AIProjectClient(
             endpoint=FOUNDRY_PROJECT_ENDPOINT,
-            credential=DefaultAzureCredential()
+            credential=AzureCliCredential()
         )
 
         self.openai = self.project.get_openai_client(
@@ -66,7 +66,7 @@ If the topic is not covered in the study material, clearly say that it is not av
             "conversation_id": conversation_id,
             "summary": response.output_text
         }
-    
+
     def generate_quiz(self, topic: str):
 
         conversation_id = self.create_conversation()
@@ -109,7 +109,7 @@ Do not add information that is not supported by the study material.
             "conversation_id": conversation_id,
             "quiz": response.output_text
         }
-    
+
     def generate_revision_notes(self, topic: str):
 
         conversation_id = self.create_conversation()

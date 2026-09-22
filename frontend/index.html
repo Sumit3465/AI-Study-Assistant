@@ -272,18 +272,30 @@
 
                             <div>
                                 <span class="response-icon">✦</span>
-
+                        
                                 <div>
                                     <strong>AI Response</strong>
-                                    <span>Grounded answer</span>
+                                    <span>Grounded by your study material</span>
                                 </div>
                             </div>
-
-                            <span class="live-indicator">
-                                <span class="status-dot"></span>
-                                Ready
-                            </span>
-
+                        
+                            <div class="response-actions">
+                        
+                                <span class="live-indicator">
+                                    <span class="status-dot"></span>
+                                    Ready
+                                </span>
+                        
+                                <button
+                                    class="copy-button"
+                                    onclick="copyAnswer()"
+                                    title="Copy response"
+                                >
+                                    Copy
+                                </button>
+                        
+                            </div>
+                        
                         </div>
 
                         <div id="answer" class="response-content">

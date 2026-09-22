@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyAI — Sign In</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0e0f1a;
+            --surface: #151621;
+            --surface-card: #1c1d2e;
+            --border: rgba(255,255,255,0.08);
+            --text: #f0f1f7;
+            --muted: #9295a5;
+            --primary: #6c6df0;
+            --primary-dark: #5758d8;
+            --error: #ff6b6b;
+            --success: #35c58a;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        button, input { font: inherit; }
+        button { cursor: pointer; }
+
+        /* ---- Layout ---- */
+        .auth-page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* ---- Left Panel ---- */
+        .auth-left {
+            background: linear-gradient(135deg, #171927 0%, #25264a 55%, #343575 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 44px 52px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-left::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 50%;
+            right: -180px;
+            top: -180px;
+            pointer-events: none;
+        }
+
+        .auth-left::after {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 50%;
+            left: -100px;
+            bottom: -100px;
+            pointer-events: none;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c6df0, #8a63e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .brand-text h1 {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-text span {
+            display: block;
+            color: #9295a5;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .left-hero {
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-hero .eyebrow {
+            color: #a9abff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+        }
+
+        .left-hero h2 {
+            font-size: clamp(36px, 3vw, 52px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin: 14px 0 16px;
+        }
+
+        .left-hero p {
+            color: #bfc1d0;
+            font-size: 14px;
+            max-width: 380px;
+            line-height: 1.7;
+        }
+
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 8px 14px;
+            font-size: 12px;
+            color: #d0d1e8;
+        }
+
+        .pill-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+            flex-shrink: 0;
+        }
+
+        .left-footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-stack span {
+            color: #aeb1c0;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 10px;
+        }
+
+        /* ---- Right Panel ---- */
+        .auth-right {
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 32px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-card-header {
+            margin-bottom: 32px;
+        }
+
+        .auth-card-header h2 {
+            font-size: 26px;
+            letter-spacing: -0.7px;
+            margin-bottom: 6px;
+        }
+
+        .auth-card-header p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ---- Tabs ---- */
+        .auth-tabs {
+            display: flex;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 28px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ---- Form ---- */
+        .auth-form { display: flex; flex-direction: column; gap: 16px; }
+        .auth-form.hidden { display: none; }
+
+        .form-group { display: flex; flex-direction: column; gap: 7px; }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #c4c6d8;
+        }
+
+        .form-group input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s ease;
+            width: 100%;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108,109,240,0.15);
+        }
+
+        .form-group input::placeholder { color: #555870; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 4px;
+            transition: 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(108,109,240,0.35);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ---- Messages ---- */
+        .auth-message {
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .auth-message.error {
+            background: rgba(255,107,107,0.1);
+            border: 1px solid rgba(255,107,107,0.25);
+            color: #ff9a9a;
+            display: block;
+        }
+
+        .auth-message.success {
+            background: rgba(53,197,138,0.1);
+            border: 1px solid rgba(53,197,138,0.25);
+            color: #5ddcaa;
+            display: block;
+        }
+
+        /* ---- Loader ---- */
+        .btn-loader {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .submit-btn.loading .btn-loader { display: block; }
+        .submit-btn.loading .btn-label { opacity: 0.7; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ---- Divider ---- */
+        .auth-divider {
+            text-align: center;
+            color: var(--muted);
+            font-size: 11px;
+            margin: 6px 0;
+            position: relative;
+        }
+
+        .auth-divider::before, .auth-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 42%;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .auth-divider::before { left: 0; }
+        .auth-divider::after { right: 0; }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 800px) {
+            .auth-page { grid-template-columns: 1fr; }
+            .auth-left { display: none; }
+            .auth-right { min-height: 100vh; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-page">
+
+    <!-- Left branding panel -->
+    <div class="auth-left">
+
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div class="brand-text">
+                <h1>StudyAI</h1>
+                <span>AI Study Assistant</span>
+            </div>
+        </div>
+
+        <div class="left-hero">
+            <span class="eyebrow">YOUR PERSONAL STUDY COPILOT</span>
+            <h2>
+                Learn smarter.<br>
+                Understand faster.
+            </h2>
+            <p>
+                Ask questions, summarize concepts, generate quizzes,
+                and create revision notes using your study material —
+                all powered by Azure AI Foundry.
+            </p>
+
+            <div class="feature-pills">
+                <div class="pill"><div class="pill-dot"></div> Ask AI</div>
+                <div class="pill"><div class="pill-dot"></div> Summarize</div>
+                <div class="pill"><div class="pill-dot"></div> Generate Quiz</div>
+                <div class="pill"><div class="pill-dot"></div> Revision Notes</div>
+            </div>
+        </div>
+
+        <div class="left-footer">
+            <div class="tech-stack">
+                <span>Microsoft Foundry</span>
+                <span>Foundry IQ</span>
+                <span>Azure AI Search</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Right auth panel -->
+    <div class="auth-right">
+
+        <div class="auth-card">
+
+            <div class="auth-card-header">
+                <h2 id="cardTitle">Welcome back.</h2>
+                <p id="cardSubtitle">Sign in to continue to your study assistant.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+                <button class="tab-btn" id="registerTab" onclick="switchTab('register')">Create Account</button>
+            </div>
+
+            <!-- Message -->
+            <div class="auth-message" id="authMessage"></div>
+
+            <!-- Login Form -->
+            <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email address</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com" required autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password" />
+                </div>
+                <button type="submit" class="submit-btn" id="loginBtn">
+                    <span class="btn-loader"></span>
+                    <span class="btn-label">Sign In →</span>
+                </button>
+            </form>
+
+            <!-- Register Form -->
+            <form class="auth-form hidden" id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full name</label>
+                    <input type="text" id="registerName" placeholder="Your name" required autocomplete="name" minlength="2" />
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email address</label>
+                    <input type="email" id="registerEmail" placeholder="you@example.com" required autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" placeholder="Min. 6 characters" required autocomplete="new-password" minlength="6" />
+                </div>
+                <button type="submit" class="submit-btn" id="registerBtn">
+                    <span class="btn-loader"></span>
+                    <span class="btn-label">Create Account →</span>
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const API_URL = "http://127.0.0.1:8000";
+
+// Redirect if already logged in
+if (localStorage.getItem("studyai_token")) {
+    window.location.href = "index.html";
+}
+
+function switchTab(tab) {
+    const isLogin = tab === "login";
+
+    document.getElementById("loginTab").classList.toggle("active", isLogin);
+    document.getElementById("registerTab").classList.toggle("active", !isLogin);
+    document.getElementById("loginForm").classList.toggle("hidden", !isLogin);
+    document.getElementById("registerForm").classList.toggle("hidden", isLogin);
+
+    document.getElementById("cardTitle").textContent = isLogin ? "Welcome back." : "Create an account.";
+    document.getElementById("cardSubtitle").textContent = isLogin
+        ? "Sign in to continue to your study assistant."
+        : "Sign up to start learning with AI.";
+
+    clearMessage();
+}
+
+function showMessage(text, type) {
+    const el = document.getElementById("authMessage");
+    el.textContent = text;
+    el.className = `auth-message ${type}`;
+}
+
+function clearMessage() {
+    const el = document.getElementById("authMessage");
+    el.className = "auth-message";
+    el.textContent = "";
+}
+
+function setLoading(btnId, loading) {
+    const btn = document.getElementById(btnId);
+    btn.classList.toggle("loading", loading);
+    btn.disabled = loading;
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    clearMessage();
+    setLoading("loginBtn", true);
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    try {
+        const res = await fetch(`${API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            showMessage(data.detail || "Login failed. Please try again.", "error");
+            return;
+        }
+
+        localStorage.setItem("studyai_token", data.access_token);
+        localStorage.setItem("studyai_name", data.name);
+        localStorage.setItem("studyai_email", data.email);
+
+        showMessage("Signed in successfully! Redirecting...", "success");
+        setTimeout(() => { window.location.href = "index.html"; }, 800);
+
+    } catch (err) {
+        showMessage("Unable to connect to the server. Make sure the backend is running.", "error");
+    } finally {
+        setLoading("loginBtn", false);
+    }
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    clearMessage();
+    setLoading("registerBtn", true);
+
+    const name = document.getElementById("registerName").value.trim();
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value;
+
+    try {
+        const res = await fetch(`${API_URL}/api/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            showMessage(data.detail || "Registration failed. Please try again.", "error");
+            return;
+        }
+
+        localStorage.setItem("studyai_token", data.access_token);
+        localStorage.setItem("studyai_name", data.name);
+        localStorage.setItem("studyai_email", data.email);
+
+        showMessage("Account created! Redirecting...", "success");
+        setTimeout(() => { window.location.href = "index.html"; }, 800);
+
+    } catch (err) {
+        showMessage("Unable to connect to the server. Make sure the backend is running.", "error");
+    } finally {
+        setLoading("registerBtn", false);
+    }
+}
+</script>
+
+</body>
+</html>

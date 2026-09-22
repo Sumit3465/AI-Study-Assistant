@@ -1,14 +1,18 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
 from app.models.schemas import QuestionRequest, AnswerResponse
 from app.foundry import foundry_service
+from app.auth import get_current_user
+from app.database import User
 
 router = APIRouter(prefix="/api", tags=["Chat"])
 
 
 @router.post("/ask", response_model=AnswerResponse)
-def ask_question(request: QuestionRequest):
-
+def ask_question(
+    request: QuestionRequest,
+    current_user: User = Depends(get_current_user)
+):
     try:
         result = foundry_service.ask(
             question=request.question,
@@ -25,7 +29,4 @@ def ask_question(request: QuestionRequest):
         )
 
     except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        )
+        raise HTTPException(status_code=500, detail=str(e))

@@ -60,6 +60,15 @@
                     <span>Azure AI Search</span>
                 </div>
 
+                <div class="user-card">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-info">
+                        <strong id="sidebarUserName"></strong>
+                        <span id="sidebarUserEmail"></span>
+                    </div>
+                    <button class="logout-btn" onclick="logout()" title="Sign out">⎋</button>
+                </div>
+
             </div>
 
         </aside>
@@ -443,6 +452,11 @@
 
 
     <script src="script.js"></script>
+    <script>
+        const _name = localStorage.getItem("studyai_name");
+        const _avatar = document.getElementById("userAvatar");
+        if (_name && _avatar) _avatar.textContent = _name.charAt(0).toUpperCase();
+    </script>
 
 </body>
 </html>

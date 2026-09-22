@@ -1229,3 +1229,79 @@ input::placeholder {
     font-size: 12px;
     opacity: 0.65;
 }
+
+
+/* =========================
+   USER CARD & LOGOUT
+========================= */
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6c6df0, #8a63e8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: white;
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-info strong {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-info span {
+    display: block;
+    color: var(--sidebar-muted);
+    font-size: 10px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logout-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--sidebar-muted);
+    border-radius: 7px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 80, 80, 0.12);
+    border-color: rgba(255, 80, 80, 0.3);
+    color: #ff9a9a;
+}

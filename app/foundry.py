@@ -1,4 +1,5 @@
-from azure.core.credentials import AzureKeyCredential
+import time
+from azure.core.credentials import AccessToken
 from azure.ai.projects import AIProjectClient
 
 from app.config import (
@@ -8,12 +9,22 @@ from app.config import (
 )
 
 
+class ApiKeyCredential:
+    """Wraps an API key to satisfy the TokenCredential interface."""
+
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+
+    def get_token(self, *scopes, **kwargs):
+        return AccessToken(self.api_key, int(time.time()) + 3600)
+
+
 class FoundryService:
 
     def __init__(self):
         self.project = AIProjectClient(
             endpoint=FOUNDRY_PROJECT_ENDPOINT,
-            credential=AzureKeyCredential(AZURE_API_KEY)
+            credential=ApiKeyCredential(AZURE_API_KEY)
         )
 
         self.openai = self.project.get_openai_client(

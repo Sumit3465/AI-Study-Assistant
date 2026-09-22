@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "";
 
 let conversationId = null;
 
@@ -21,12 +21,12 @@ function logout() {
     localStorage.removeItem("studyai_token");
     localStorage.removeItem("studyai_name");
     localStorage.removeItem("studyai_email");
-    window.location.href = "auth.html";
+    window.location.href = "/";
 }
 
 // Redirect to login if not authenticated
 if (!getToken()) {
-    window.location.href = "auth.html";
+    window.location.href = "/";
 }
 
 

@@ -469,11 +469,11 @@
 </div>
 
 <script>
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "";
 
 // Redirect if already logged in
 if (localStorage.getItem("studyai_token")) {
-    window.location.href = "index.html";
+    window.location.href = "/dashboard";
 }
 
 function switchTab(tab) {
@@ -537,7 +537,7 @@ async function handleLogin(e) {
         localStorage.setItem("studyai_email", data.email);
 
         showMessage("Signed in successfully! Redirecting...", "success");
-        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        setTimeout(() => { window.location.href = "/dashboard"; }, 800);
 
     } catch (err) {
         showMessage("Unable to connect to the server. Make sure the backend is running.", "error");
@@ -574,7 +574,7 @@ async function handleRegister(e) {
         localStorage.setItem("studyai_email", data.email);
 
         showMessage("Account created! Redirecting...", "success");
-        setTimeout(() => { window.location.href = "index.html"; }, 800);
+        setTimeout(() => { window.location.href = "/dashboard"; }, 800);
 
     } catch (err) {
         showMessage("Unable to connect to the server. Make sure the backend is running.", "error");

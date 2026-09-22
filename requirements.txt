@@ -38,3 +38,4 @@ passlib[bcrypt]
 bcrypt
 sqlalchemy
 email-validator
+aiofiles

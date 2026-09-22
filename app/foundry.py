@@ -1,9 +1,10 @@
-from azure.identity import AzureCliCredential
+from azure.core.credentials import AzureKeyCredential
 from azure.ai.projects import AIProjectClient
 
 from app.config import (
     FOUNDRY_PROJECT_ENDPOINT,
-    FOUNDRY_AGENT_NAME
+    FOUNDRY_AGENT_NAME,
+    AZURE_API_KEY
 )
 
 
@@ -12,7 +13,7 @@ class FoundryService:
     def __init__(self):
         self.project = AIProjectClient(
             endpoint=FOUNDRY_PROJECT_ENDPOINT,
-            credential=AzureCliCredential()
+            credential=AzureKeyCredential(AZURE_API_KEY)
         )
 
         self.openai = self.project.get_openai_client(

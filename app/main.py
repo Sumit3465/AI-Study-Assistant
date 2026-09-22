@@ -2,6 +2,8 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from app.routes.study import router as study_router
 from app.routes.chat import router as chat_router
 from app.routes.quiz import router as quiz_router
@@ -40,9 +42,18 @@ app.include_router(quiz_router)
 app.include_router(revision_router)
 
 
+# Serve frontend static files (CSS, JS)
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+
 @app.get("/")
 def root():
-    return {"message": "AI Study Assistant API is running"}
+    return FileResponse("frontend/auth.html")
+
+
+@app.get("/dashboard")
+def dashboard():
+    return FileResponse("frontend/index.html")
 
 
 @app.get("/health")

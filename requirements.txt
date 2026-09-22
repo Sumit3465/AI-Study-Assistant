@@ -33,3 +33,7 @@ typing-inspection==0.4.4
 typing_extensions==4.16.0
 urllib3==2.8.0
 uvicorn==0.53.0
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+sqlalchemy

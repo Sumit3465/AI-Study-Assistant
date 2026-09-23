@@ -4,8 +4,11 @@
 
 Project Name: AI Study Assistant
 Repository: https://github.com/Sumit3465/AI-Study-Assistant
+
 Demo:- https://ai-study-assistant-h8mk.onrender.com
+
 Primary Technologies:
+
 Python, FastAPI, HTML, CSS, JavaScript
 AI Technologies:
 Microsoft Foundry, Foundry IQ, Azure AI Search

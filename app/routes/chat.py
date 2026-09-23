@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException
 
 from app.models.schemas import QuestionRequest, AnswerResponse
 from app.foundry import foundry_service
@@ -6,6 +6,8 @@ from app.auth import get_current_user
 from app.database import User
 
 router = APIRouter(prefix="/api", tags=["Chat"])
+
+logger = logging.getLogger(__name__)
 
 
 @router.post("/ask", response_model=AnswerResponse)
@@ -29,4 +31,7 @@ def ask_question(
         )
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )

@@ -80,9 +80,11 @@ Student
 Features:-
 
 💬AI Chat Assistant
-Students can ask questions in natural language and interact with the AI Study Assistant.
+Students can ask questions in natural language and interact with the AI Study Assistant. 
+
 🧠 AI-Powered Responses
 The assistant uses AI to understand user queries and generate relevant responses.
+
 📚 Study Support
 The application can help students with:
 Concept explanations
@@ -91,14 +93,19 @@ Revision
 Academic questions
 Technical questions
 Exam preparation
+
 🔎 Intelligent Information Retrieval
 The project integrates Azure AI Search to support searching and retrieving relevant information from configured sources.
+
 🗂️ Knowledge Integration
 Foundry IQ can be used as part of the knowledge and retrieval workflow to provide relevant context to the AI system.
+
 ☁️ Microsoft Foundry Integration
 The project uses Microsoft Foundry capabilities to build and connect the AI-powered assistant.
+
 ⚡ FastAPI Backend
 The backend is developed using FastAPI, which handles communication between the frontend and AI services.
+
 🎨 Interactive Frontend
 The application provides a simple and interactive web interface that allows students to communicate with the AI assistant easily.
 

@@ -165,40 +165,52 @@ The application provides a simple and interactive web interface that allows stud
 
 The application follows the following workflow:
 1️⃣ User Input
-The student opens the AI Study Assistant and enters a question.
+The student opens the AI Study Assistant and enters a question.  
+
 2️⃣ Frontend Request
 The frontend captures the user's question and sends it to the FastAPI backend.
+
 3️⃣ Backend Processing
 The FastAPI backend receives the request and processes the user's query.
+
 4️⃣ AI Agent
 The backend communicates with the configured Microsoft Foundry AI Agent.
 The AI Agent understands the user's query and determines the appropriate response.
+
 5️⃣ Knowledge Retrieval
 When required, relevant information can be retrieved using:
 Foundry IQ
 Azure AI Search
 Configured knowledge sources
+
 6️⃣ Response Generation
 The AI uses the available information and context to generate a response.
+
 7️⃣ Response Display
 The generated response is returned to the frontend and displayed to the student.
 
 🧪 Testing
+
 The repository contains test files for checking the AI Agent and Microsoft Foundry integration.
 
 🌐 Deployment
+
 The project can be deployed on cloud platforms such as Render.
 
 🎓 Example Use Cases
 
 The AI Study Assistant can be used for:
+
 📖 Concept Learning
+
 Students can ask the AI to explain difficult concepts.
 
 💻 Programming Help
+
 Students can ask programming-related questions.
 
 📝 Exam Preparation
+
 Students can use the assistant to revise important topics before examinations.
 
 🎯 Project Objectives
@@ -215,19 +227,27 @@ To provide an easy-to-use study platform
 🚀 Future Scope
 
 The project can be enhanced with additional features in the future.
+
 📝 Automatic Quiz Generation
 Generate quizzes and MCQs automatically based on the student's selected topic.
+
 📊 Student Progress Tracking
 Track student performance and learning progress.
+
 📅 Personalized Study Plans
 Create customized study schedules based on the student's subjects and goals.
+
 📄 PDF / Notes Analysis
 Allow students to upload their study material and ask questions from it.
+
 🎤 Voice Assistant
 Add voice-based interaction so students can ask questions using their voice.
+
 🌐 Multi-Language Support
 Provide explanations in multiple languages for better accessibility.
+
 🧠 Personalized Learning
 The assistant could adapt explanations according to the student's learning requirements.
+
 📈 Performance Analytics
 Provide insights into frequently asked topics, quiz scores, and learning progress.
